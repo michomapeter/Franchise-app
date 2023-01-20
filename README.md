@@ -1,2 +1,1 @@
-# -Orderapp
-Management Franchise.
+Food franchise app.
