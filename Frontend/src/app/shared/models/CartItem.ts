@@ -1,10 +1,9 @@
 import {Food} from "./Food";
 
 export class CartItem{
-    constructor(food:Food){
+    constructor( public food:Food){
 
     }
-    food!:Food;
     quantity:number =1;
     price: number =this.food.price;
 }

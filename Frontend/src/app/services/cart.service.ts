@@ -10,7 +10,7 @@ import { Food } from '../shared/models/Food';
 
 
 export class CartService {
-  private cart: Cart = new Cart();
+  private cart: Cart = this.getCartFromLocalStorage();
   private cartSubject: BehaviorSubject<Cart> = new BehaviorSubject(this.cart);
 
   constructor() {}
@@ -19,10 +19,13 @@ export class CartService {
     let CartItem = this.cart.items.find(item => item.food.id === food.id);
     if(CartItem)
     return;
+    //this.cart.items.push(new CartItem(food));
+    this.setCartToLocalStorage();
     }
 
   removeFromCart(foodId: string): void {
       this.cart.items = this.cart.items.filter(item => item.food.id != foodId);
+      this.setCartToLocalStorage();
     }
   
   changeQuantity(foodId: string , quantity: number){
@@ -31,18 +34,19 @@ export class CartService {
 
     CartItem.quantity = quantity;
     CartItem.price = quantity * CartItem.food.price;
+    this.setCartToLocalStorage();
   }
 
   clearCart(){
     this.cart = new Cart();
-   // this.setCartToLocalStorage();
+   this.setCartToLocalStorage();
   }
 
   getCartObservable():Observable<Cart>{
     return this.cartSubject.asObservable();
   }
 
-  private setCartToLocalStorage(){
+  private setCartToLocalStorage():void{
     this.cart.totalPrice = this.cart.items.reduce((prevSum , currentItem)=> prevSum + currentItem.price ,0);
     this.cart.totalCount = this.cart.items.reduce((prevSum , currentItem)=> prevSum + currentItem.quantity ,0);
 

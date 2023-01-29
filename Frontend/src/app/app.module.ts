@@ -10,7 +10,7 @@ import { SearchComponent } from './components/partials/search/search.component';
 import { TagsComponent } from './components/partials/tags/tags.component';
 import { FoodPageComponent } from './components/pages/food-page/food-page.component';
 import { CartPageComponent } from './components/pages/cart-page/cart-page.component';
-
+import {HttpClientModule} from '@angular/common/http';
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,6 +25,7 @@ import { CartPageComponent } from './components/pages/cart-page/cart-page.compon
     BrowserModule,
     AppRoutingModule,
     RatingModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
